@@ -1,0 +1,1 @@
+export declare const CurrentUser: (...dataOrPipes: (import("@nestjs/common").PipeTransform<any, any> | keyof import("src/auth/dto/authenticated.dto").JwtPayload | import("@nestjs/common").Type<import("@nestjs/common").PipeTransform<any, any>>)[]) => ParameterDecorator;
