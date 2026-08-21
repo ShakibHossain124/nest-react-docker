@@ -78,8 +78,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "deleteSelf", null);
 __decorate([
-    (0, roles_decorator_1.Roles)(enums_1.UserRole['ADMIN']),
-    (0, common_1.Get)('/user/:id'),
+    (0, roles_decorator_1.Roles)(enums_1.UserRole['ADMIN'], enums_1.UserRole['USER']),
+    (0, common_1.Post)('/user:id'),
     __param(0, (0, common_1.Param)('id', positive_int_pipe_1.PositiveIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
@@ -87,7 +87,7 @@ __decorate([
 ], UsersController.prototype, "findOne", null);
 __decorate([
     (0, roles_decorator_1.Roles)(enums_1.UserRole['ADMIN']),
-    (0, common_1.Patch)('/user/:id'),
+    (0, common_1.Patch)('/user:id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),

@@ -58,7 +58,6 @@ services:
 
 volumes:
   postgres_data:
-    external: true
     name: nest-docker_postgres_data
   app_modules:
   frontend_modules:

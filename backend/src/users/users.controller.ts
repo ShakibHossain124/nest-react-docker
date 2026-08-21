@@ -50,14 +50,14 @@ export class UsersController {
   }
 
   //admin routes
-  @Roles(UserRole['ADMIN'])
-  @Get('/user/:id')
+  @Roles(UserRole['ADMIN'],UserRole['USER'])
+  @Post('/user:id')
   findOne(@Param('id', PositiveIntPipe) id: number) {
     return this.usersService.findOne(id);
   }
 
   @Roles(UserRole['ADMIN'])
-  @Patch('/user/:id')
+  @Patch('/user:id')
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto,
