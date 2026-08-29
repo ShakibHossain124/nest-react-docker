@@ -62,6 +62,18 @@ export class UsersService {
       const skip = (page - 1) * limit;
       const [users, total] = await this.prisma.$transaction([
         this.prisma.user.findMany({
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            createdAt: true,
+            updatedAt: true,
+            _count: {
+              select: {
+                refreshTokens: true,
+              },
+            },
+          },
           where,
           skip: skip,
           take: limit,
@@ -97,20 +109,18 @@ export class UsersService {
           id: 'asc',
         },
       ],
-      select:{
-        id:true,
+      select: {
+        id: true,
         name: true,
         email: true,
-        password: true,
-        createdAt:true,
+        createdAt: true,
         updatedAt: true,
-        _count:true,
-        refreshTokens:{
-          select:{
-            hashedToken:true
-          }
+        _count: {
+          select: {
+            refreshTokens: true,
+          },
         },
-      }
+      },
     });
   }
 
@@ -123,13 +133,13 @@ export class UsersService {
   async findOne(id: number) {
     let user = await this.prisma.user.findUnique({
       where: { id },
-      select:{
-        id:true,
-        name:true,
+      select: {
+        id: true,
+        name: true,
         email: true,
-        role:true,
-        createdAt:true,
-        updatedAt:true,
+        role: true,
+        createdAt: true,
+        updatedAt: true,
       },
     });
     if (!user) {

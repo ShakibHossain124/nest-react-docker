@@ -23,6 +23,7 @@ import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { JwtPayload } from 'jsonwebtoken';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { GetUsersQueryDto } from './dto/get-users-query.dto';
+import { Public } from 'src/common/decorators/public.decorator';
 
 @UseInterceptors(LoggerInterceptor)
 @UseGuards(RoleCheck)
@@ -31,6 +32,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Roles('ADMIN')
+  @Public()
   @Get('/users')
   findAll(@Query() query: GetUsersQueryDto) {
     return this.usersService.findAll(query);
@@ -50,7 +52,7 @@ export class UsersController {
   }
 
   //admin routes
-  @Roles(UserRole['ADMIN'],UserRole['USER'])
+  @Roles(UserRole['ADMIN'], UserRole['USER'])
   @Post('/user:id')
   findOne(@Param('id', PositiveIntPipe) id: number) {
     return this.usersService.findOne(id);

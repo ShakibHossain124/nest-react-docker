@@ -22,7 +22,12 @@ export class AuthService {
     private readonly refreshTokenService: RefreshTokenService,
   ) {}
 
-  private generateAccessToken(user: {id:number,email:string,name:string,role:UserRole}) {
+  private generateAccessToken(user: {
+    id: number;
+    email: string;
+    name: string;
+    role: UserRole;
+  }) {
     return this.jwtService.sign({
       sub: user.id,
       email: user.email,
