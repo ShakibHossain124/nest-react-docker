@@ -22,7 +22,7 @@ export class GetUsersQueryDto {
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  @Max(5)
+  @Max(10)
   limit?: number;
 
   @IsOptional()
@@ -30,8 +30,8 @@ export class GetUsersQueryDto {
   order?: 'asc' | 'desc';
 
   @IsOptional()
-  @IsIn(['id', 'name', 'email', 'createdAt'])
-  sortBy?: 'id' | 'name' | 'email' | 'createdAt';
+  @IsIn(['id', 'name', 'email', 'role', 'createdAt'])
+  sortBy?: 'id' | 'name' | 'email' | 'role' | 'createdAt';
 
   @IsOptional()
   @IsEnum(UserRole)

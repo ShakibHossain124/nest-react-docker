@@ -1,57 +1,45 @@
-import { useState } from "react";
-import "./App.css";
-// import { Card } from "./components/Card";
-// import { NavBar } from "./components/NavBar";
-// import { Counter } from "./components/Counter";
-// import { CounterEffect } from "./components/CounterEffect";
-// import { FetchUsers } from "./components/FetchUsers";
-// import { RefFocus } from "./components/RefFocus";
-// import { ThemeProvider } from "./components/ThemeProvider";
-// import { UserCard } from "./components/UserCard";
-// import { UserForm } from "./components/UserForm";
-// import { UserManager } from "./components/UserManager";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { NavBar } from "./contextComponents/NavBar";
-import { type User, UserProvider } from "./contexts/UserContext";
-// export type User = {
-//   name: string;
-//   email: string;
-//   age: number;
-//   isAdmin: boolean;
-// };
+import { AdminRoute } from "./components/AdminRoute";
+import { Navbar } from "./components/NavBar";
+import { GuestRoute, ProtectedRoute } from "./components/ProtectedRoutes";
+import { AuthProvider } from "./contexts/AuthContexts";
+import { AdminPage } from "./pages/AdminPage";
+import { DashboardPage } from "./pages/DashboardPage";
+import { LogInPage } from "./pages/LandingPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
+import { RegisterPage } from "./pages/RegisterPage";
+import { UserProfilePage } from "./pages/UserProfilePage";
 
 function App() {
-  const [users, setUsers] = useState<User>({
-    id: 1,
-    name: "shakib",
-    email: "s@g.com",
-  });
   return (
-    <>
-      {/* <Card></Card> */}
-      {/* <UserCard
-          user={{
-            name: "shakib",
-            email: "shakib@gmail.com",
-            age: 25,
-            isAdmin: true,
-          }}
-        ></UserCard>
-        <Counter />
-        <UserManager />
-        <UserForm /> 
-        <CounterEffect></CounterEffect> */}
-      {/* <FetchUsers></FetchUsers> */}
-      {/* <RefFocus></RefFocus> */}
+    <AuthProvider>
+      <BrowserRouter>
+        <div className="min-h-screen bg-slate-100 text-slate-900">
+          <Navbar />
+          <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <Routes>
+              <Route element={<GuestRoute />}>
+                <Route path="/" element={<LogInPage />} />
+                <Route path="/login" element={<LogInPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+              </Route>
 
-      {/* <ThemeProvider>
-        <div>Hello world!</div>
-        <NavBar></NavBar>
-      </ThemeProvider> */}
-      <UserProvider users={users} setUsers={setUsers}>
-        <NavBar></NavBar>
-      </UserProvider>
-    </>
+              <Route element={<ProtectedRoute />}>
+                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/profile" element={<UserProfilePage />} />
+              </Route>
+
+              <Route element={<AdminRoute />}>
+                <Route path="/admin" element={<AdminPage />} />
+              </Route>
+
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </main>
+        </div>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

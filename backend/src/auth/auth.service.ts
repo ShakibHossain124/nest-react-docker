@@ -28,13 +28,15 @@ export class AuthService {
     name: string;
     role: UserRole;
   }) {
+    console.log("generated")
     return this.jwtService.sign({
       sub: user.id,
       email: user.email,
       name: user.name,
       role: user.role,
       type: 'access',
-    });
+    },
+  );
   }
 
   private generateRefreshToken(userId: number) {
@@ -126,6 +128,10 @@ export class AuthService {
     await this.refreshTokenService.storeToken(user.id, refreshToken);
 
     return { accessToken, refreshToken };
+  }
+
+  async getCurrentUser(id: number){
+    return this.userService.findOne(id)
   }
 
   async logout(refreshToken: string) {

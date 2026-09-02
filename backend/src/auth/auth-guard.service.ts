@@ -32,6 +32,7 @@ export class AuthGuard implements CanActivate {
     if (isPublic) return true;
 
     const token = req.cookies['access-token'];
+    console.log("checked")
 
     if (!token) throw new UnauthorizedException('No valid token');
 

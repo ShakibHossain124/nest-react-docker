@@ -41,8 +41,8 @@ export class UsersController {
   //user routes
   @Roles(UserRole['USER'])
   @Patch('/update/self')
-  updateSelf(@CurrentUser() req: JwtPayload, @Body() body: UpdateUserDto) {
-    return this.usersService.updateSelf(req.user.sub, body);
+  updateSelf(@CurrentUser('sub') sub: number, @Body() body: UpdateUserDto) {
+    return this.usersService.updateSelf(sub, body);
   }
 
   @Roles(UserRole['USER'])
@@ -53,13 +53,13 @@ export class UsersController {
 
   //admin routes
   @Roles(UserRole['ADMIN'], UserRole['USER'])
-  @Post('/user:id')
+  @Get('/user/:id')
   findOne(@Param('id', PositiveIntPipe) id: number) {
     return this.usersService.findOne(id);
   }
 
   @Roles(UserRole['ADMIN'])
-  @Patch('/user:id')
+  @Patch('/user/:id')
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto,

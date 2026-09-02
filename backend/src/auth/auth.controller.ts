@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login-dto';
@@ -6,6 +6,9 @@ import { Request, Response } from 'express';
 import { Public } from 'src/common/decorators/public.decorator';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { UserRole } from 'src/generated/prisma/enums';
+import { CurrentUser } from 'src/common/decorators/current-user.decorator';
+import { User } from 'src/generated/prisma/client';
+import { AuthenticatedRequest } from './dto/authenticated.dto';
 
 @Controller('/auth')
 export class AuthController {
@@ -101,5 +104,10 @@ export class AuthController {
     return {
       message: 'Logged Out successfully',
     };
+  }
+
+  @Get('/me')
+  async authMe(@CurrentUser() user: AuthenticatedRequest['user']){
+    return this.authService.getCurrentUser(user.sub)
   }
 }

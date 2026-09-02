@@ -34,11 +34,28 @@ export class UsersService {
     return this.prisma.user.update({
       where: { id },
       data: body,
+      select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      createdAt: true,
+      updatedAt: true,
+    }
     });
   }
 
   async deleteSelf(id: number) {
-    return this.prisma.user.delete({ where: { id } });
+    return this.prisma.user.delete({ where: { id },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      createdAt: true,
+      updatedAt: true,
+    }
+    });
   }
 
   //admin methods
@@ -66,6 +83,7 @@ export class UsersService {
             id: true,
             name: true,
             email: true,
+            role: true,
             createdAt: true,
             updatedAt: true,
             _count: {
@@ -113,6 +131,7 @@ export class UsersService {
         id: true,
         name: true,
         email: true,
+        role:true,
         createdAt: true,
         updatedAt: true,
         _count: {
@@ -127,6 +146,14 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     return await this.prisma.user.create({
       data: createUserDto,
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        createdAt: true,
+        updatedAt: true,
+      }
     });
   }
 
@@ -140,7 +167,7 @@ export class UsersService {
         role: true,
         createdAt: true,
         updatedAt: true,
-      },
+      }
     });
     if (!user) {
       throw new NotFoundException('User not found');
@@ -161,6 +188,14 @@ export class UsersService {
 
     return this.prisma.user.update({
       where: { id: id },
+      select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      createdAt: true,
+      updatedAt: true,
+    },
       data: updateUserDto,
     });
   }
@@ -168,13 +203,28 @@ export class UsersService {
   async updateRole(id: number, dto: UpdateRoleDto) {
     return this.prisma.user.update({
       where: { id },
+      select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      createdAt: true,
+      updatedAt: true,
+    },
       data: { role: dto.role },
     });
   }
 
   async delete(id: number) {
     await this.findOne(id);
-    return this.prisma.user.delete({ where: { id: id } });
+    return this.prisma.user.delete({ where: { id: id },select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      createdAt: true,
+      updatedAt: true,
+    } });
   }
 
   async findByEmail(email: string) {
