@@ -1,15 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
 import { AdminRoute } from "./components/AdminRoute";
 import { Navbar } from "./components/NavBar";
 import { GuestRoute, ProtectedRoute } from "./components/ProtectedRoutes";
 import { AuthProvider } from "./contexts/AuthContexts";
 import { AdminPage } from "./pages/AdminPage";
 import { DashboardPage } from "./pages/DashboardPage";
-import { LogInPage } from "./pages/LandingPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { UserProfilePage } from "./pages/UserProfilePage";
+import { LogInPage } from "./pages/LogInPage";
 
 function App() {
   return (
