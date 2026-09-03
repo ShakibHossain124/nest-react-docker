@@ -2,7 +2,7 @@
 import type { ApiResponse, PaginatedUsersResponse, User } from "../types/user.types";
 import { fetchWithAuth } from "./fetch.api.client";
 
-const API_URL = "http://localhost:3000";
+const API_URL = "https://nest-react-docker.onrender.com";
 
 export async function fetchUsers(
   signal: AbortSignal,

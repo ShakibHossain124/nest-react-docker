@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000";
+const API_URL = "https://nest-react-docker.onrender.com/";
 
 let isRefreshing = false;
 let refreshPromise: Promise<boolean> | null = null;
