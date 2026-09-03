@@ -29,8 +29,8 @@ export class AuthController {
       await this.authService.login(logInDto);
     response.cookie('access-token', accessToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
+      secure: true,
+      sameSite: 'none',
       maxAge: 10 * 60 * 1000,
     });
 
@@ -57,14 +57,14 @@ export class AuthController {
     response.cookie('access-token', accessToken, {
       httpOnly: true,
       secure: true,
-      sameSite: 'lax',
+      sameSite: 'none',
       maxAge: 10 * 60 * 1000,
     });
 
     response.cookie('refresh-token', refreshToken, {
       httpOnly: true,
       secure: true,
-      sameSite: 'lax',
+      sameSite: 'none',
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
 
