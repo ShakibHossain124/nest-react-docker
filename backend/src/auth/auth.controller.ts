@@ -7,7 +7,6 @@ import { Public } from 'src/common/decorators/public.decorator';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { UserRole } from 'src/generated/prisma/enums';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
-import { User } from 'src/generated/prisma/client';
 import { AuthenticatedRequest } from './dto/authenticated.dto';
 
 @Controller('/auth')

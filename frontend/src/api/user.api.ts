@@ -1,4 +1,3 @@
-
 import type { ApiResponse, PaginatedUsersResponse, User } from "../types/user.types";
 import { fetchWithAuth } from "./fetch.api.client";
 

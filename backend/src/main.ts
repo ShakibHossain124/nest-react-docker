@@ -17,7 +17,10 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: 'https://nest-react-docker-1.onrender.com',
+    origin: [
+      'http://localhost:5173',
+      'https://nest-react-docker-1.onrender.com'
+    ],
     credentials: true
   });
 
