@@ -56,14 +56,14 @@ export class AuthController {
 
     response.cookie('access-token', accessToken, {
       httpOnly: true,
-      secure: false,
+      secure: true,
       sameSite: 'lax',
       maxAge: 10 * 60 * 1000,
     });
 
     response.cookie('refresh-token', refreshToken, {
       httpOnly: true,
-      secure: false,
+      secure: true,
       sameSite: 'lax',
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });

@@ -13,7 +13,7 @@ export interface AuthUser {
 }
 
 export async function fetchCurrentUser(): Promise<AuthUser | null> {
-  const response = await fetchWithAuth(`${API_URL}/auth/me`);
+  const response = await fetchWithAuth(`${API_URL}/auth/me`, {}, false);
 
   if (response.status === 401) {
     return null;

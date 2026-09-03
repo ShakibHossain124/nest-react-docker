@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import type { FormEvent } from "react";
+import type { SyntheticEvent } from "react";
 import { deleteSelf, updateSelf } from "../api/user.api";
 import { useAuth } from "../contexts/AuthContexts";
 
@@ -20,7 +20,7 @@ export function UserProfilePage() {
 
   if (!user) return null;
 
-  const handleUpdate = async (e: FormEvent) => {
+  const handleUpdate = async (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     setMessage("");
