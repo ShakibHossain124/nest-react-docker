@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import type { SyntheticEvent } from "react";
+import { logoutAllUserSessions } from "../api/auth.api";
 import { deleteSelf, updateSelf } from "../api/user.api";
 import { useAuth } from "../contexts/AuthContexts";
 
@@ -16,6 +17,7 @@ export function UserProfilePage() {
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [loggingOutAll, setLoggingOutAll] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   if (!user) return null;
@@ -64,6 +66,20 @@ export function UserProfilePage() {
       setError(err instanceof Error ? err.message : "Delete failed");
       setDeleting(false);
       setShowDeleteConfirm(false);
+    }
+  };
+
+  const handleLogoutAll = async () => {
+    setError("");
+    setLoggingOutAll(true);
+
+    try {
+      await logoutAllUserSessions();
+      logout();
+      navigate("/login");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to log out of all sessions");
+      setLoggingOutAll(false);
     }
   };
 
@@ -150,6 +166,21 @@ export function UserProfilePage() {
             {saving ? "Saving..." : "Save Changes"}
           </button>
         </form>
+
+        <div className="mt-8 border-t border-slate-200 pt-6">
+          <h2 className="text-lg font-semibold text-slate-900">Session security</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Sign out this account everywhere, including devices you no longer use.
+          </p>
+          <button
+            type="button"
+            onClick={handleLogoutAll}
+            disabled={loggingOutAll}
+            className="mt-4 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 font-medium text-slate-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {loggingOutAll ? "Signing out everywhere..." : "Log out of all devices"}
+          </button>
+        </div>
 
         <div className="mt-8 border-t border-slate-200 pt-6">
           <h2 className="text-lg font-semibold text-rose-600">Danger Zone</h2>

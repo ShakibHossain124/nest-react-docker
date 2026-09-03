@@ -9,6 +9,7 @@ import { NotFoundPage } from "./pages/NotFoundPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { UserProfilePage } from "./pages/UserProfilePage";
 import { LogInPage } from "./pages/LogInPage";
+import { LandingPage } from "./pages/LandingPage";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
           <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <Routes>
               <Route element={<GuestRoute />}>
-                <Route path="/" element={<LogInPage />} />
+                <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<LogInPage />} />
                 <Route path="/register" element={<RegisterPage />} />
               </Route>

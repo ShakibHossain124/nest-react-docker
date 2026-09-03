@@ -71,3 +71,16 @@ export async function logoutUser() {
 
   return response.json();
 }
+
+export async function logoutAllUserSessions() {
+  const response = await fetch(`${API_URL}/auth/logout/all`, {
+    method: "POST",
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to log out of all sessions");
+  }
+
+  return response.json();
+}
