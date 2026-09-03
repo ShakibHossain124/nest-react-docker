@@ -37,7 +37,7 @@ export class AuthController {
     response.cookie('refresh-token', refreshToken, {
       httpOnly: true,
       secure: false,
-      sameSite: 'lax',
+      sameSite: 'none',
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
 
@@ -81,8 +81,19 @@ export class AuthController {
   ) {
     await this.authService.logout(request.cookies['refresh-token']);
 
-    response.clearCookie('access-token');
-    response.clearCookie('refresh-token');
+    response.clearCookie('access-token', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      path: '/',
+    });
+
+    response.clearCookie('refresh-token', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      path: '/',
+    });
 
     return {
       message: 'Logged Out successfully',
