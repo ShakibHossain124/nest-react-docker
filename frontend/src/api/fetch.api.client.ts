@@ -1,4 +1,4 @@
-const API_URL = "https://nest-react-docker.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL ?? "https://nest-react-docker.onrender.com";
 
 let isRefreshing = false;
 let refreshPromise: Promise<boolean> | null = null;

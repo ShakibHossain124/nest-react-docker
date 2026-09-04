@@ -1,7 +1,7 @@
 import { fetchWithAuth } from "./fetch.api.client";
 
 
-const API_URL = "https://nest-react-docker.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL ?? "https://nest-react-docker.onrender.com";
 
 export interface AuthUser {
   id: number;
