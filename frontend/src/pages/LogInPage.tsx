@@ -19,6 +19,9 @@ export function LogInPage() {
     try {
       await loginUser(email, password);
       const user = await fetchCurrentUser();
+      if (!user) {
+        throw new Error("Login succeeded, but the session cookie was not accepted. Check your browser cookie settings and try again.");
+      }
       setUser(user);
       navigate("/dashboard");
     } catch (err) {

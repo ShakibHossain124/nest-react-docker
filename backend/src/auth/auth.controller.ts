@@ -31,6 +31,7 @@ export class AuthController {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
+      path: '/',
       maxAge: 10 * 60 * 1000,
     });
 
@@ -38,6 +39,7 @@ export class AuthController {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
+      path: '/',
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
 
@@ -58,6 +60,7 @@ export class AuthController {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
+      path: '/',
       maxAge: 10 * 60 * 1000,
     });
 
@@ -65,6 +68,7 @@ export class AuthController {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
+      path: '/',
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
 
@@ -108,8 +112,8 @@ export class AuthController {
   ) {
     await this.authService.logoutAll(request.cookies['refresh-token']);
 
-    response.clearCookie('access-token');
-    response.clearCookie('refresh-token');
+    response.clearCookie('access-token', { path: '/' });
+    response.clearCookie('refresh-token', { path: '/' });
 
     return {
       message: 'Logged Out successfully',
